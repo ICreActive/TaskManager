@@ -1,5 +1,5 @@
 package domain.Task;
 
 public enum Priority {
-    HIGH, MEDIUM, LOW;
+    HIGH, MEDIUM, LOW, WITHOUT
 }

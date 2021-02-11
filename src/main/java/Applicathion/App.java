@@ -64,10 +64,10 @@ public class App {
 
                     for (Category elem : Category.values()) {
                         if (elem.name().equalsIgnoreCase(category)) {
-                            task.setCategory(category.toUpperCase(Locale.ROOT));
+                            task.setCategory(Category.valueOf(category.toUpperCase()));
                             break;
                         }
-                        task.setCategory("OTHER");
+                        task.setCategory(Category.OTHER);
                     }
 
                     System.out.println("Введите количество повторов для этой задачи");
@@ -75,11 +75,11 @@ public class App {
                     int repeatCount = sc7.nextInt();
                     task.setName(name);
                     for (Priority elem : Priority.values()) {
-                        if (elem.name().equals(priority)) {
-                            task.setPriority(priority);
+                        if (elem.name().equalsIgnoreCase(priority)) {
+                            task.setPriority(Priority.valueOf(priority.toUpperCase()));
                             break;
                         }
-                        task.setPriority("without");
+                        task.setPriority(Priority.WITHOUT);
                     }
 
                     task.setDeadline(deadline);
@@ -93,20 +93,20 @@ public class App {
                     task.setName(name);
                     for (Category elem : Category.values()) {
                         if (elem.name().equalsIgnoreCase(category)) {
-                            task.setCategory(category.toUpperCase());
+                            task.setCategory(Category.valueOf(category.toUpperCase()));
                             break;
                         }
-                        task.setCategory("OTHER");
+                        task.setCategory(Category.OTHER);
                     }
                     for (Priority elem : Priority.values()
                     ) {
                         if (elem.name().equalsIgnoreCase(priority)) {
-                            task.setPriority(priority.toUpperCase());
+                            task.setPriority(Priority.valueOf(priority.toUpperCase()));
                             break;
                         }
-                        task.setPriority("without");
+                        task.setPriority(Priority.WITHOUT);
                     }
-                    task.setPriority(priority);
+                    task.setPriority(Priority.valueOf(priority.toUpperCase()));
                     task.setDeadline(deadline);
                     taskList.add(task);
                     task.setTaskId(taskList.indexOf(task) + 1);
@@ -145,6 +145,7 @@ public class App {
             }
 
         }
+
     }
 
 }

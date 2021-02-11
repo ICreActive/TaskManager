@@ -1,14 +1,12 @@
 package domain.Task;
 
-
-import java.util.Collection;
 import java.util.Objects;
 
 public abstract class Tasks implements Comparable<Tasks>{
 
     private String name;
-    private String category;
-    private String priority;
+    private Category category;
+    private Priority priority;
     private String deadline;
     protected int TaskId;
 
@@ -17,11 +15,11 @@ public abstract class Tasks implements Comparable<Tasks>{
 
     }
 
-    public String getCategory() {
-        return category;
+    public Category getCategory() {
+        return this.category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -34,11 +32,11 @@ public abstract class Tasks implements Comparable<Tasks>{
     }
 
 
-    public String getPriority() {
-        return priority;
+    public Priority getPriority() {
+        return this.priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
@@ -86,6 +84,7 @@ public abstract class Tasks implements Comparable<Tasks>{
         return Objects.hash(name, category, priority, deadline, TaskId);
 
     }
+
 }
 
 
