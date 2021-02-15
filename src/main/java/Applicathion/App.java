@@ -6,6 +6,7 @@ import domain.Users.User;
 
 import java.util.*;
 
+
 public class App {
 
     public static void main(String[] args) {
@@ -58,7 +59,6 @@ public class App {
                 Scanner sc6 = new Scanner(System.in);
                 String repeat = sc6.nextLine();
 
-
                 if (repeat.equals("y")) {
                     ReusableTask task = new ReusableTask();
 
@@ -106,7 +106,6 @@ public class App {
                         }
                         task.setPriority(Priority.WITHOUT);
                     }
-                    task.setPriority(Priority.valueOf(priority.toUpperCase()));
                     task.setDeadline(deadline);
                     taskList.add(task);
                     task.setTaskId(taskList.indexOf(task) + 1);
@@ -116,28 +115,26 @@ public class App {
                     System.out.println("Недопустимое значение");
                 }
 
-                System.out.println("Ввести новую задачу? (yes / любая клавиша)");
+                System.out.println("Ввести новую задачу? (y / любая клавиша)");
                 Scanner sc7 = new Scanner(System.in);
                 userChoice1 = sc7.nextLine();
-            } while (userChoice1.equals("yes"));
-
-
-            System.out.println("Вывести все задачи? y / n");
-            Scanner sc7 = new Scanner(System.in);
-            String showAllTask = sc7.nextLine();
-            if (showAllTask.equals("y")) {
-                for (Tasks list : taskList) {
-                    System.out.println(list);
-                    System.out.println();
-                }
-
+            } while (userChoice1.equals("y"));
+        }
+        System.out.println("Вывести все задачи? y / n");
+        Scanner sc7 = new Scanner(System.in);
+        String showAllTask = sc7.nextLine();
+        if (showAllTask.equals("y")) {
+            for (Tasks list : taskList) {
+                System.out.println(list);
+                System.out.println();
             }
+
         }
         System.out.println("Отсортировать задачи по названию? y/n");
         Scanner sc8 = new Scanner(System.in);
         String sort = sc8.nextLine();
 
-        if (sort.equals("y")) {
+        if (sort.equalsIgnoreCase("y")) {
             Collections.sort(taskList);
             for (Tasks list : taskList) {
                 System.out.println(list);
@@ -145,10 +142,35 @@ public class App {
             }
 
         }
+        System.out.println("Фильтр задач. Введите категорию задачи");
+        Scanner sc9 = new Scanner(System.in);
+        String filterCategory = sc9.nextLine();
+
+        StreamMethod.filterToCategory(taskList,filterCategory);
+
+        System.out.println("Вывести названия задач? y / n");
+        Scanner sc10 = new Scanner(System.in);
+        String ShowAllName = sc10.nextLine();
+        if (ShowAllName.equalsIgnoreCase("y")) {
+            StreamMethod.showAllTask(taskList);
+        }
+        System.out.println("Вывести только уникальные по названию задачи? y / n");
+        Scanner sc11 = new Scanner(System.in);
+        String uniq = sc11.nextLine();
+        if (uniq.equalsIgnoreCase("y")) {
+            StreamMethod.UniqueTask(taskList);
+        }
+        System.out.println("Больше какого количества символов должны быть имена задач?");
+        Scanner sc12 = new Scanner(System.in);
+        int numberSymbols = sc12.nextInt();
+        StreamMethod.symbol(taskList,numberSymbols);
 
     }
 
+
 }
+
+
 
 
 

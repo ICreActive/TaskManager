@@ -2,7 +2,8 @@ package domain.Task;
 
 import java.util.Objects;
 
-public abstract class Tasks implements Comparable<Tasks>{
+
+public abstract class Tasks implements Comparable<Tasks> {
 
     private String name;
     private Category category;
@@ -58,7 +59,7 @@ public abstract class Tasks implements Comparable<Tasks>{
 
     @Override
     public String toString() {
-        String a = "TaskID: " + TaskId + '\n'+
+        String a = "TaskID: " + getTaskId() + '\n'+
                 "Задача: " + getName() + '\n' +
                 "Категория: " + getCategory() + '\n' +
                 "Приоритет: " + getPriority() + '\n' +
@@ -76,15 +77,13 @@ public abstract class Tasks implements Comparable<Tasks>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tasks tasks = (Tasks) o;
-        return Objects.equals(name, tasks.name) && Objects.equals(category, tasks.category);
+        return Objects.equals(name, tasks.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, category, priority, deadline, TaskId);
-
+        return Objects.hash(name);
     }
-
 }
 
 
