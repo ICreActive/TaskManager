@@ -1,15 +1,21 @@
 package Applicathion;
 
 
+import domain.Exception.InputDeadlineException;
+import domain.Service.DateValidatorDTF;
+import domain.Service.StreamMethod;
 import domain.Task.*;
 import domain.Users.User;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
-
 
 public class App {
 
-    public static void main(String[] args) {
+    public static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+
+    public static void main(String[] args) throws InputDeadlineException {
 
         User<Object> NewUser = new User.Builder<>()
                 .withName("Ivan")
@@ -31,10 +37,28 @@ public class App {
 
         List<Tasks> taskList = new LinkedList<>();
 
+        LocalDateTime today = LocalDateTime.now();
+        String todayStr = today.format(dtf);
+
         System.out.println("Для создания новой задчачи введите - 1");
 
         Scanner sc1 = new Scanner(System.in);
-        int userChoice = sc1.nextInt();
+        int userChoice;
+        boolean b;
+        try {
+            userChoice = sc1.nextInt();
+        } catch (InputMismatchException e) {
+            System.err.println("Допустимы только цифровые значения");
+            Scanner sc01 = new Scanner(System.in);
+            b = sc01.hasNextInt();
+            while (!b) {
+                System.err.println("Допустимы только цифровые значения");
+                sc01 = new Scanner(System.in);
+                b = sc01.hasNextInt();
+            }
+            userChoice = sc01.nextInt();
+        }
+
         String userChoice1;
         if (userChoice == 1) {
             do {
@@ -53,7 +77,20 @@ public class App {
 
                 System.out.println("Введите критичную дату выполнения, (Enter чтобы пропустить)");
                 Scanner sc5 = new Scanner(System.in);
-                String deadline = sc5.nextLine();
+                String deadlineStr;
+                deadlineStr = sc5.nextLine();
+                LocalDateTime deadline;
+
+                DateValidatorDTF validator = new DateValidatorDTF(dtf);
+                while (!validator.isValid(deadlineStr)) {
+                    System.err.println("Incorrect format DateTime (dd.MM.yyyy HH:mm)");
+                    Scanner sc05 = new Scanner(System.in);
+                    deadlineStr = sc05.nextLine();
+                }
+
+                deadline = LocalDateTime.parse(deadlineStr, dtf);
+
+                System.out.println(deadline);
 
                 System.out.println("Нужно ли повторить задачу в будущем? y / n");
                 Scanner sc6 = new Scanner(System.in);
@@ -81,12 +118,17 @@ public class App {
                         }
                         task.setPriority(Priority.WITHOUT);
                     }
-
-                    task.setDeadline(deadline);
+                    try {
+                        task.setDeadline(deadline);
+                    } catch (InputDeadlineException e) {
+                        e.printStackTrace();
+                    }
+                    task.setDateCreation(todayStr);
                     task.setRepeatCount(repeatCount);
                     taskList.add(task);
                     task.setTaskId(taskList.indexOf(task) + 1);
                     System.out.println("Создана повторяемая задача: " + "\n" + task + '\n');
+
 
                 } else if (repeat.equals("n")) {
                     OneTimeTask task = new OneTimeTask();
@@ -107,6 +149,7 @@ public class App {
                         task.setPriority(Priority.WITHOUT);
                     }
                     task.setDeadline(deadline);
+                    task.setDateCreation(todayStr);
                     taskList.add(task);
                     task.setTaskId(taskList.indexOf(task) + 1);
                     System.out.println("Создана одноразовая задача: " + "\n" + task + '\n');
@@ -128,8 +171,8 @@ public class App {
                 System.out.println(list);
                 System.out.println();
             }
-
         }
+
         System.out.println("Отсортировать задачи по названию? y/n");
         Scanner sc8 = new Scanner(System.in);
         String sort = sc8.nextLine();
@@ -146,7 +189,7 @@ public class App {
         Scanner sc9 = new Scanner(System.in);
         String filterCategory = sc9.nextLine();
 
-        StreamMethod.filterToCategory(taskList,filterCategory);
+        StreamMethod.filterToCategory(taskList, filterCategory);
 
         System.out.println("Вывести названия задач? y / n");
         Scanner sc10 = new Scanner(System.in);
@@ -162,13 +205,33 @@ public class App {
         }
         System.out.println("Больше какого количества символов должны быть имена задач?");
         Scanner sc12 = new Scanner(System.in);
-        int numberSymbols = sc12.nextInt();
-        StreamMethod.symbol(taskList,numberSymbols);
+        int numberSymbols;
+        boolean a;
+        try {
+            numberSymbols = sc12.nextInt();
+        } catch (InputMismatchException e) {
+            System.err.println("Допустимы только цифровые значения");
+            Scanner sc13 = new Scanner(System.in);
+            a = sc13.hasNextInt();
+            while (!a) {
+                System.err.println("Допустимы только цифровые значения");
+                sc13 = new Scanner(System.in);
+                a = sc13.hasNextInt();
+            }
+            numberSymbols = sc13.nextInt();
+        }
+
+        StreamMethod.symbol(taskList, numberSymbols);
 
     }
 
 
 }
+
+
+
+
+
 
 
 

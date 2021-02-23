@@ -1,4 +1,7 @@
-package domain.Task;
+package domain.Service;
+
+import domain.Task.Category;
+import domain.Task.Tasks;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,14 +20,15 @@ public class StreamMethod {
                         .forEach(System.out::println);
             }
     }
-    public static void showAllTask (List<Tasks> tasks) {
+
+    public static void showAllTask(List<Tasks> tasks) {
         tasks.stream()
                 .map(Tasks::getName)
                 .forEach(System.out::println);
     }
 
 
-    public static void UniqueTask(List <Tasks> tasks) {
+    public static void UniqueTask(List<Tasks> tasks) {
 
         tasks.stream()
                 .distinct()
@@ -32,9 +36,14 @@ public class StreamMethod {
                 .forEach(System.out::println);
 
     }
-    public static void symbol (List <Tasks> tasks, int symbols) {
-        boolean lengthName = tasks.stream().allMatch(task -> task.getName().length()>symbols);
-        System.out.println(lengthName);
+
+    public static void symbol(List<Tasks> tasks, int symbols) {
+        boolean lengthName = tasks.stream().allMatch(task -> task.getName().length() > symbols);
+        if (lengthName) {
+            System.out.println("Названия длинее чем " + symbols);
+        } else {
+            System.out.println("Названия не длинее чем " + symbols);
+        }
     }
 
 }

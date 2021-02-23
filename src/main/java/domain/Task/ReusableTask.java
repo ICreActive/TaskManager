@@ -2,7 +2,9 @@ package domain.Task;
 
 import domain.Performable;
 
-public class ReusableTask extends Tasks implements Performable, Comparable<Tasks> {
+import java.io.Serializable;
+
+public class ReusableTask extends Tasks implements Performable, Comparable<Tasks>, Serializable {
 
     private int repeatCount;
 
@@ -21,6 +23,7 @@ public class ReusableTask extends Tasks implements Performable, Comparable<Tasks
                 "Задача: " + getName() + '\n' +
                 "Категория: " + getCategory() + '\n' +
                 "Приоритет: " + getPriority() + '\n' +
+                "Дата создания: " + getDateCreation() + '\n' +
                 "Срок выполнения: " + getDeadline() + '\n' +
                 "Количество повторений: " + getRepeatCount();
 
