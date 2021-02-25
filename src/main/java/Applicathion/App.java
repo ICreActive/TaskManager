@@ -123,7 +123,7 @@ public class App {
                     } catch (InputDeadlineException e) {
                         e.printStackTrace();
                     }
-                    task.setDateCreation(todayStr);
+                    task.setDateCreation(today);
                     task.setRepeatCount(repeatCount);
                     taskList.add(task);
                     task.setTaskId(taskList.indexOf(task) + 1);
@@ -149,7 +149,7 @@ public class App {
                         task.setPriority(Priority.WITHOUT);
                     }
                     task.setDeadline(deadline);
-                    task.setDateCreation(todayStr);
+                    task.setDateCreation(today);
                     taskList.add(task);
                     task.setTaskId(taskList.indexOf(task) + 1);
                     System.out.println("Создана одноразовая задача: " + "\n" + task + '\n');

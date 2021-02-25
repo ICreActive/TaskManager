@@ -2,6 +2,7 @@ package domain.Task;
 
 import domain.Exception.InputDeadlineException;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -10,7 +11,7 @@ public abstract class Tasks implements Comparable<Tasks> {
     private String name;
     private Category category;
     private Priority priority;
-    private String dateCreation;
+    private LocalDateTime dateCreation;
     private LocalDateTime deadline;
     protected int TaskId;
 
@@ -49,11 +50,11 @@ public abstract class Tasks implements Comparable<Tasks> {
         this.priority = priority;
     }
 
-    public String getDateCreation() {
+    public LocalDateTime getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(String dateCreation) {
+    public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
     }
 
@@ -67,6 +68,15 @@ public abstract class Tasks implements Comparable<Tasks> {
             throw new InputDeadlineException("Incorrect date of deadline");
         }
         this.deadline = deadline;
+    }
+
+    private String TimeOff(LocalDateTime dateCreation, LocalDateTime deadline) {
+        Duration timeOff = Duration.between(dateCreation, deadline);
+        long day = timeOff.toDays();
+        long hour = timeOff.toHours()-(day*24);
+        long minute = timeOff.toMinutes()-(day*24*60);
+        return "Дней: " + day + ", часов: " + hour + ", минут: " + minute;
+
     }
 
     public int getTaskId() {
@@ -102,7 +112,8 @@ public abstract class Tasks implements Comparable<Tasks> {
                 "Категория: " + getCategory() + '\n' +
                 "Приоритет: " + getPriority() + '\n' +
                 "Дата создания: " + getDateCreation() + '\n' +
-                "Срок выполнения: " + getDeadline();
+                "Срок выполнения: " + getDeadline() + '\n' +
+                "До окончания осталось: " + TimeOff(dateCreation, deadline);
 
         return a.replaceAll("null", " - ");
     }
