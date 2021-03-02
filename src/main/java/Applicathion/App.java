@@ -2,6 +2,7 @@ package Applicathion;
 
 
 import domain.Exception.InputDeadlineException;
+import domain.Service.DataBase;
 import domain.Service.DateValidatorDTF;
 import domain.Service.StreamMethod;
 import domain.Task.*;
@@ -38,7 +39,6 @@ public class App {
         List<Tasks> taskList = new LinkedList<>();
 
         LocalDateTime today = LocalDateTime.now();
-        String todayStr = today.format(dtf);
 
         System.out.println("Для создания новой задчачи введите - 1");
 
@@ -222,9 +222,10 @@ public class App {
         }
 
         StreamMethod.symbol(taskList, numberSymbols);
-
+        DataBase db = new DataBase();
+        db.saveTasks(taskList);
+        db.loadTasks();
     }
-
 
 }
 
