@@ -1,6 +1,8 @@
 package domain.Users;
 
-public class User <T> {
+import java.io.Serializable;
+
+public class User <T> implements Serializable {
 
     private String name;
     private String surname;

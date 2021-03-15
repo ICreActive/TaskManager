@@ -2,11 +2,12 @@ package domain.Task;
 
 import domain.Exception.InputDeadlineException;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public abstract class Tasks implements Comparable<Tasks> {
+public abstract class Tasks implements Comparable<Tasks>, Serializable {
 
     private String name;
     private Category category;
@@ -14,6 +15,7 @@ public abstract class Tasks implements Comparable<Tasks> {
     private LocalDateTime dateCreation;
     private LocalDateTime deadline;
     protected int TaskId;
+    private final LocalDateTime today = LocalDateTime.now();
 
     public Tasks() {
 
@@ -74,7 +76,7 @@ public abstract class Tasks implements Comparable<Tasks> {
         Duration timeOff = Duration.between(dateCreation, deadline);
         long day = timeOff.toDays();
         long hour = timeOff.toHours()-(day*24);
-        long minute = timeOff.toMinutes()-(day*24*60);
+        long minute = timeOff.toMinutes()-(day*24*60) - (hour*60);
         return "Дней: " + day + ", часов: " + hour + ", минут: " + minute;
 
     }

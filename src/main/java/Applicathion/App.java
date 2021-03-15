@@ -5,9 +5,9 @@ import domain.Exception.InputDeadlineException;
 import domain.Service.DataBase;
 import domain.Service.DateValidatorDTF;
 import domain.Service.StreamMethod;
+import domain.Service.UserVerification;
 import domain.Task.*;
 import domain.Users.User;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -18,27 +18,36 @@ public class App {
 
     public static void main(String[] args) throws InputDeadlineException {
 
-        User<Object> NewUser = new User.Builder<>()
-                .withName("Ivan")
+        DataBase db = new DataBase();
+
+        List <User> users = DataBase.loadUser();
+
+        User<Object> newUser = new User.Builder<>()
+                .withName("Alex")
                 .withSurname("Shkubel")
                 .withEmail("negumadness@gmail.com")
                 .withUserID(12234)
                 .build();
-        System.out.println(NewUser);
 
-
-        User<Object> NewUser1 = new User.Builder<>()
+        User<Object> newUser1 = new User.Builder<>()
                 .withName("Ivan")
                 .withSurname("Shkubel")
-                .withEmail("negumadness@gmail.com")
+                .withEmail("Lifer3d@gmail.com")
                 .withUserID("1fhswwq")
                 .build();
-        System.out.println(NewUser1);
 
+        UserVerification.UserAddWithVerify(users,newUser);
+        UserVerification.UserAddWithVerify(users,newUser1);
 
-        List<Tasks> taskList = new LinkedList<>();
+        DataBase.saveUsers(users);
 
         LocalDateTime today = LocalDateTime.now();
+
+        List<Tasks> taskList = db.loadTasks();
+        for (Tasks list : taskList) {
+            System.out.println(list);
+            System.out.println();
+        }
 
         System.out.println("Для создания новой задчачи введите - 1");
 
@@ -222,9 +231,8 @@ public class App {
         }
 
         StreamMethod.symbol(taskList, numberSymbols);
-        DataBase db = new DataBase();
+
         db.saveTasks(taskList);
-        db.loadTasks();
     }
 
 }
