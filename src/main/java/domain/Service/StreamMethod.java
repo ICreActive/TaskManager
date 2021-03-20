@@ -1,7 +1,7 @@
 package domain.Service;
 
-import domain.Task.Category;
-import domain.Task.Tasks;
+import domain.Model.Task.Category;
+import domain.Model.Task.Tasks;
 
 import java.util.List;
 import java.util.stream.Collectors;

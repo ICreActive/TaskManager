@@ -1,4 +1,4 @@
-package domain.Task;
+package domain.Model.Task;
 
 import domain.Exception.InputDeadlineException;
 import org.junit.Test;

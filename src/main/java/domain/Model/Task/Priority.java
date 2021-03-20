@@ -1,4 +1,4 @@
-package domain.Task;
+package domain.Model.Task;
 
 public enum Priority {
     HIGH, MEDIUM, LOW, WITHOUT

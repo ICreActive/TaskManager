@@ -1,4 +1,4 @@
-package domain.Task;
+package domain.Model.Task;
 
 public interface CreateTask {
 

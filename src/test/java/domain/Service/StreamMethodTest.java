@@ -1,9 +1,9 @@
 package domain.Service;
 
-import domain.Task.ReusableTask;
-import domain.Task.Tasks;
+import domain.Model.Task.ReusableTask;
+import domain.Model.Task.Tasks;
 import org.junit.Assert;
-import org.junit.Test;
+
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;

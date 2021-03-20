@@ -1,4 +1,4 @@
-package domain.Users;
+package domain.Model.Users;
 
 import java.io.Serializable;
 

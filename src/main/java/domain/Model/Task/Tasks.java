@@ -1,4 +1,4 @@
-package domain.Task;
+package domain.Model.Task;
 
 import domain.Exception.InputDeadlineException;
 
@@ -15,7 +15,6 @@ public abstract class Tasks implements Comparable<Tasks>, Serializable {
     private LocalDateTime dateCreation;
     private LocalDateTime deadline;
     protected int TaskId;
-    private final LocalDateTime today = LocalDateTime.now();
 
     public Tasks() {
 
@@ -72,8 +71,8 @@ public abstract class Tasks implements Comparable<Tasks>, Serializable {
         this.deadline = deadline;
     }
 
-    private String TimeOff(LocalDateTime dateCreation, LocalDateTime deadline) {
-        Duration timeOff = Duration.between(dateCreation, deadline);
+    private String TimeOff(LocalDateTime now, LocalDateTime deadline) {
+        Duration timeOff = Duration.between(now, deadline);
         long day = timeOff.toDays();
         long hour = timeOff.toHours()-(day*24);
         long minute = timeOff.toMinutes()-(day*24*60) - (hour*60);
@@ -115,7 +114,7 @@ public abstract class Tasks implements Comparable<Tasks>, Serializable {
                 "Приоритет: " + getPriority() + '\n' +
                 "Дата создания: " + getDateCreation() + '\n' +
                 "Срок выполнения: " + getDeadline() + '\n' +
-                "До окончания осталось: " + TimeOff(dateCreation, deadline);
+                "До окончания осталось: " + TimeOff(LocalDateTime.now(), deadline);
 
         return a.replaceAll("null", " - ");
     }

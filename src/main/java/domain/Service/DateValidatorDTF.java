@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 public class DateValidatorDTF implements DateValidator{
 
 
-    private DateTimeFormatter dateFormatter;
+    private final DateTimeFormatter dateFormatter;
 
     public DateValidatorDTF (DateTimeFormatter dateFormatter) {
         this.dateFormatter=dateFormatter;

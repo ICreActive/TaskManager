@@ -1,7 +1,7 @@
 package domain.Service;
 
-import domain.Task.Tasks;
-import domain.Users.User;
+import domain.Model.Task.Tasks;
+import domain.Model.Users.User;
 
 import java.util.LinkedList;
 import java.util.List;

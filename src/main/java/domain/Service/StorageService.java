@@ -1,6 +1,6 @@
 package domain.Service;
 
-import domain.Task.Tasks;
+import domain.Model.Task.Tasks;
 import java.util.List;
 
 public interface StorageService {

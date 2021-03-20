@@ -1,6 +1,6 @@
 package domain.Service;
 
-import domain.Users.User;
+import domain.Model.Users.User;
 import org.junit.Assert;
 import org.junit.Test;
 

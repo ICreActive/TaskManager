@@ -1,6 +1,6 @@
 package domain.Service;
 
-import domain.Users.User;
+import domain.Model.Users.User;
 
 import java.util.List;
 
